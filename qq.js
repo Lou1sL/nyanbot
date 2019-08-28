@@ -39,11 +39,11 @@ class QQ {
         console.log('\x1b[32m%s\x1b[32m\x1b[0m%s\x1b[0m','RCV(GROUP):',JSON.stringify(context))
 
         if(rtn !== null) this.sendGroupMsg(context.group_id,rtn)
-        
+
       }
     })
 
-    this.bot.listen(config.cq_post_port, '127.0.0.1')
+    this.bot.listen(config.cq_post_port, config.cq_post_ip)
   }
 
   log(msg,toGroup=false) {

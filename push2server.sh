@@ -9,4 +9,4 @@ fi
 
 sshpass -p "$PASS" rsync -av ./ "$USR"@"$IP":"$DEST"
 sshpass -p "$PASS" ssh "$USR"@"$IP" fuser -k "$PORT"/tcp
-sshpass -p "$PASS" ssh "$USR"@"$IP" nohup node "$DEST" &
+sshpass -p "$PASS" ssh "$USR"@"$IP" nohup node "$DEST"/index.js &

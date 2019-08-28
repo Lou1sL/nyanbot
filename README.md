@@ -1,4 +1,4 @@
-nyanbot，一个酷QPro机器人，运行在docker，使用httpapi插件
+nyanbot，一个酷QPro机器人，使用httpapi插件
 
 cq_docker_container.sh
 docker容器配置

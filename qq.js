@@ -46,34 +46,38 @@ class QQ {
     this.bot.listen(config.cq_post_port, config.cq_post_ip)
   }
 
-  log(msg,toGroup=false) {
+  async log(msg,toGroup=false) {
 
     var message = `Nyanbot log(${moment().format('YYYY/MM/DD hh:mm:ss')}):\n${msg}`
 
-    if      (  toGroup && config.admin_group ) this.sendGroupMsg(config.admin_group,message )
-    else if ( !toGroup && config.admin_qq    ) this.sendMsg     (config.admin_qq,   message )
+    if      (  toGroup && config.admin_group ) return await this.sendGroupMsg(config.admin_group,message )
+    else if ( !toGroup && config.admin_qq    ) return await this.sendMsg     (config.admin_qq,   message )
     else    console.log('\x1b[31m%s\x1b[31m\x1b[0m%s\x1b[0m', 'QQLOG FALLBACK(Did you set admin_qq/admin_group?):', msg)
-
+    
   }
 
   async sendMsg(id,message){
     var context = { user_id:id, message }
+    var mid = null
     try {
-      await this.bot('send_msg',context)
+      mid = await this.bot('send_msg',context)
       console.log('\x1b[32m%s\x1b[32m\x1b[0m%s\x1b[0m', 'SEND:', JSON.stringify(context))
     } catch (e) {
-      if(e.status!== 200 && e.retcode!== 100) console.log('\x1b[31m%s\x1b[31m\x1b[0m%s\x1b[0m', 'SEND EXCEPTION:', JSON.stringify(e))
+      if(e.status!== 200 || e.retcode!== 100) console.log('\x1b[31m%s\x1b[31m\x1b[0m%s\x1b[0m', 'SEND EXCEPTION:', JSON.stringify(e))
     }
+    return mid
   }
 
   async sendGroupMsg(id,message){
     var context = { group_id:id, message }
+    var mid = null
     try {
-      await this.bot('send_msg', context)
+      mid = await this.bot('send_msg', context)
       console.log('\x1b[32m%s\x1b[32m\x1b[0m%s\x1b[0m', 'SEND(GROUP):', JSON.stringify(context))
     } catch (e) {
-      if(e.status!== 200 && e.retcode!== 100) console.log('\x1b[31m%s\x1b[31m\x1b[0m%s\x1b[0m', 'SEND(GROUP) EXCEPTION:', JSON.stringify(e))
+      if(e.status!== 200 || e.retcode!== 100) console.log('\x1b[31m%s\x1b[31m\x1b[0m%s\x1b[0m', 'SEND(GROUP) EXCEPTION:', JSON.stringify(e))
     }
+    return mid
   }
 }
 

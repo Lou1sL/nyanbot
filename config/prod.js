@@ -11,5 +11,5 @@ class ProductionConfig {
     this.cq_post_port = 5600
   }
 }
+
 module.exports = ProductionConfig
-  

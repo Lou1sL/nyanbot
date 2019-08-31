@@ -1,5 +1,6 @@
 credential
 package-lock.json
+/config/dev.js
 
 .DS_Store
 node_modules

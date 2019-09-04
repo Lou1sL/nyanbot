@@ -1,14 +1,18 @@
-const QQ = require('./qq')
-const GitHub = require('github-api')
+const QQ = require('./QQ')
+const GitHub = require('./GitHub')
+
+
+let github = new GitHub()
+let shouca = github.getOrganization('shou-ca')
+shouca.listMembers({},(err, res, req)=>{console.log(req)})
+
 
 var links = {
     shouca:'[CQ:share,url=https://github.com/shou-ca,title=上海海洋大学计算机协会,content=欢迎任何有兴趣的同学加入~,image=https://avatars2.githubusercontent.com/u/54660224]',
     
 }
 
-let github = new GitHub()
-let shouca = github.getOrganization('shou-ca')
-shouca.listMembers({},(err, res, req)=>{console.log(req)})
+
 
 
 let qq = new QQ (
@@ -20,9 +24,9 @@ let qq = new QQ (
         var img_list = qq.str.getImageURL(msg)
 
         if(img_list.length > 0){
-            
-            //console.log(img_list)
-            //return qq.str.image('test.jpg')
+
+            console.log(img_list)
+            return qq.str.image('test.jpg')
         }
 
     },
@@ -35,4 +39,5 @@ let qq = new QQ (
 
     logLevel = 0,
 )
-//qq.log('(｡･∀･)ﾉﾞ嗨，Nyanbot已上线！😉 ')
+qq.log('(｡･∀･)ﾉﾞ嗨，Nyanbot已上线！😉 ')
+

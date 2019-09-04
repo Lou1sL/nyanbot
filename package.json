@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "cqhttp": "^1.1.1",
+    "github-api": "^3.3.0",
     "jwt-simple": "^0.5.6",
     "koa": "^2.7.0",
     "koa-better-body": "^3.0.4",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "babel-eslint": "^8.2.2",
     "eslint": "^4.19.1",
+    "jsdoc": "^3.6.3",
     "nodemon": "^1.17.4",
     "supervisor": "^0.12.0"
   }

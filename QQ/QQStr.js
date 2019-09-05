@@ -35,7 +35,7 @@ class QQStr{
         path.forEach((item,index,array)=>{
               if(regex.test(item)){
                 var newname = Date.now()
-                fs.copyFileSync(item,config.cq_img_path+newname)
+                fs.copyFileSync(item,config.cq.img_path+newname)
                 ret += `[CQ:image,file=${newname}]`
               }else{
                 ret += `[CQ:image,url=${item}]`
@@ -45,7 +45,7 @@ class QQStr{
       }else{
         if(regex.test(path)){
           var newname = Date.now()
-          fs.copyFileSync(path,config.cq_img_path+newname)
+          fs.copyFileSync(path,config.cq.img_path+newname)
           ret = `[CQ:image,file=${newname}]`
         }else{
           ret = `[CQ:image,url=${path}]`

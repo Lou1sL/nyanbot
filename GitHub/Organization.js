@@ -56,6 +56,16 @@ class Organization extends Requestable {
    }
 
    /**
+    * Invite a memeber
+    * @param {string} username - the user in question
+    * @param {Requestable.callback} [cb] - will receive true if the user is a member
+    * @return {Promise} - the promise for the http request
+    */
+   inviteMember(username, cb){
+      return this._request('PUT', `/orgs/${this.__name}/memberships/${username}`, null, cb);
+   }
+
+   /**
     * List the users who are members of the company
     * @see https://developer.github.com/v3/orgs/members/#members-list
     * @param {object} options - filtering options

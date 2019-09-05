@@ -16,7 +16,7 @@ class QQ {
       logLevel         = 1                        // 0:Show everything 1:Error only 2:Keep silence
   ){
 
-    this.bot = new CQHttp(config.cq)
+    this.bot = new CQHttp(config.cq.send)
 
     this.logLevel = logLevel
     this.str = new QQStr()
@@ -26,7 +26,7 @@ class QQ {
       if(context.message_type === 'private'){
 
         var rtn = 
-          ((context.sender.user_id === config.admin_qq) && config.admin_qq) ? 
+          ((context.sender.user_id === config.cq.admin.qq) && config.cq.admin.qq) ? 
           rcvAdminMsg (context.message) : 
           rcvMsg      (context.sender.user_id,context.sender.nickname,context.message)
 
@@ -39,7 +39,7 @@ class QQ {
       else if(context.message_type === 'group') {
 
         var rtn = 
-          ((context.group_id === config.admin_group) && config.admin_group) ?
+          ((context.group_id === config.cq.admin.group) && config.cq.admin.group) ?
           rcvAdminGroupMsg (context.sender.user_id,context.sender.nickname,context.message) : 
           rcvGroupMsg      (context.group_id,context.sender.user_id ,context.sender.nickname,context.message)
 
@@ -50,7 +50,7 @@ class QQ {
       }
     })
 
-    this.bot.listen(config.cq_post_port, config.cq_post_ip)
+    this.bot.listen(config.cq.rcv.port, config.cq.rcv.api)
   }
 
   /**
@@ -61,10 +61,10 @@ class QQ {
   async log(msg,toGroup=false) {
 
     var message = `Nyanbot log(${moment().format('YYYY/MM/DD hh:mm:ss')}):\n${msg}`
-
-    if      (  toGroup && config.admin_group ) return await this.sendGroupMsg(config.admin_group,message )
-    else if ( !toGroup && config.admin_qq    ) return await this.sendMsg     (config.admin_qq,   message )
-    else if ( this.logLevel <= 1 ) console.log('\x1b[31m%s\x1b[31m\x1b[0m%s\x1b[0m', '🤔  QQLOG FALLBACK(Did you set admin_qq/admin_group?):', msg)
+    
+    if      (  toGroup && config.cq.admin.group ) return await this.sendGroupMsg(config.cq.admin.group,message )
+    else if ( !toGroup && config.cq.admin.qq    ) return await this.sendMsg     (config.cq.admin.qq,   message )
+    else if ( this.logLevel <= 1 ) console.log('\x1b[31m%s\x1b[31m\x1b[0m%s\x1b[0m', '🤔  QQLOG FALLBACK(Did you set admin qq/admin group?):', msg)
     
   }
 

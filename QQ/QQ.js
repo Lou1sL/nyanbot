@@ -9,10 +9,10 @@ const config = require('../config')
 class QQ {
 
   constructor(
-      rcvAdminMsg      = (msg)              =>{},
-      rcvAdminGroupMsg = (uid,name,msg)     =>{},
-      rcvMsg           = (uid,name,msg)     =>{},
-      rcvGroupMsg      = (gid,uid,name,msg) =>{},
+      rcvAdminMsg      = async (msg)              => {},
+      rcvAdminGroupMsg = async (uid,name,msg)     => {},
+      rcvMsg           = async (uid,name,msg)     => {},
+      rcvGroupMsg      = async (gid,uid,name,msg) => {},
       logLevel         = 1                        // 0:Show everything 1:Error only 2:Keep silence
   ){
 
@@ -21,14 +21,14 @@ class QQ {
     this.logLevel = logLevel
     this.str = new QQStr()
 
-    this.bot.on('message', context => {
+    this.bot.on('message', async context => {
 
       if(context.message_type === 'private'){
 
         var rtn = 
           ((context.sender.user_id === config.cq.admin.qq) && config.cq.admin.qq) ? 
-          rcvAdminMsg (context.message) : 
-          rcvMsg      (context.sender.user_id,context.sender.nickname,context.message)
+          (await (rcvAdminMsg (context.message))) : 
+          (await (rcvMsg      (context.sender.user_id,context.sender.nickname,context.message)))
 
         if (logLevel <= 0) console.log('\x1b[32m%s\x1b[32m\x1b[0m%s\x1b[0m', '⬇️  RCV:', JSON.stringify(context))
 
@@ -40,8 +40,8 @@ class QQ {
 
         var rtn = 
           ((context.group_id === config.cq.admin.group) && config.cq.admin.group) ?
-          rcvAdminGroupMsg (context.sender.user_id,context.sender.nickname,context.message) : 
-          rcvGroupMsg      (context.group_id,context.sender.user_id ,context.sender.nickname,context.message)
+          (await (rcvAdminGroupMsg (context.sender.user_id,context.sender.nickname,context.message))) : 
+          (await (rcvGroupMsg      (context.group_id,context.sender.user_id ,context.sender.nickname,context.message)))
 
           if (logLevel <= 0) console.log('\x1b[32m%s\x1b[32m\x1b[0m%s\x1b[0m','⬇️  RCV(GROUP):',JSON.stringify(context))
 

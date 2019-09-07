@@ -49,6 +49,19 @@ class QQStr {
     return at_list
   }
 
+  dice(v){
+    return `[CQ:dice,type=${v}]`
+  }
+
+  getDice(message){
+    var regex = /\[CQ:dice,type=(.*?)\]/g
+    var dice_list = []
+    var nxt = regex.exec(message)
+    while (nxt) { dice_list.push(nxt[1]); message.replace(nxt); nxt = regex.exec(message) }
+
+    return dice_list[0]
+  }
+
   /**
    * 构造发送图片的特殊字符串
    * @param {String,Array<String>} path 图片路径（可以是URL\本地路径的str、也可是由上者构成的str arr）

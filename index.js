@@ -19,19 +19,22 @@ let qq = new QQ(config.cq.send, config.cq.rcv, config.cq.admin, 0)
 qq.rcvMsg = async (uid, uname, msg) => {
 
     //if (uid === config.cq.admin.qq) return
-
-    return await github.GitHubUserAnalyse(msg)
+    let d = qq.str.getDice(msg)
+    console.log(d)
+    if(d)return qq.str.dice(6)
+    //return await github.GitHubUserAnalyse(msg)
 }
 
 qq.rcvGroupMsg = async (gid, uid, uname, msg) => {
 
     //if (gid === config.cq.admin.group) return
-
+    
+    /*
     var img_list = qq.str.getImage(msg)
     if (img_list.length > 0) {
         console.log(img_list)
         return qq.str.image('test.jpg')
-    }
+    }*/
 }
 
 qq.log('(｡･∀･)ﾉﾞ嗨，Nyanbot已上线！😉 ')

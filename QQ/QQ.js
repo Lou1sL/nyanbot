@@ -19,6 +19,7 @@ class QQ {
     this.bot = new CQHttp(send_api)
     this.str = new QQStr()
     this.logLevel = logLevel
+    this.admin_info = admin_info
 
     this.bot.on('message', async context => {
 
@@ -54,8 +55,8 @@ class QQ {
 
     var message = `Nyanbot log(${moment().format('YYYY/MM/DD hh:mm:ss')}):\n${msg}`
 
-    if (toGroup && admin_info.group) return await this.sendGroupMsg(admin_info.group, message)
-    else if (!toGroup && admin_info.qq) return await this.sendMsg(admin_info.qq, message)
+    if (toGroup && this.admin_info.group) return await this.sendGroupMsg(this.admin_info.group, message)
+    else if (!toGroup && this.admin_info.qq) return await this.sendMsg(this.admin_info.qq, message)
     else if (this.logLevel <= 1) console.log('\x1b[31m%s\x1b[31m\x1b[0m%s\x1b[0m', '🤔  QQLOG FALLBACK(Did you set admin qq/admin group?):', msg)
 
   }

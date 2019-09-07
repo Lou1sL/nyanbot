@@ -4,7 +4,6 @@ class DevelopmentConfig {
     //酷Q配置
     this.cq = {
       //酷Q程序的图片上传根目录
-      //img_path : '',
       img_path: 'E:\\ProgramTools\\酷Q Pro\\data\\image\\',
 
       //发送酷Q消息api
@@ -16,8 +15,7 @@ class DevelopmentConfig {
 
       //接收酷Q消息api
       rcv: {
-        //api:'172.17.0.1',
-        api:'127.0.0.1',
+        ip:'127.0.0.1',
         port: 5600
       },
 
